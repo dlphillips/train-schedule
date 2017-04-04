@@ -67,7 +67,7 @@ $(document).ready(function() {
 
         // Next Train
         nextTrain = moment().add(tMinutesTillTrain, "minutes");
-        nextTrain = moment(nextTrain).format("hh:mm");
+        nextTrain = moment(nextTrain).format("hh:mm A");
 
         return [nextTrain, tMinutesTillTrain];
 
