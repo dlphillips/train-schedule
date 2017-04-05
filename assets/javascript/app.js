@@ -41,15 +41,14 @@ $(document).ready(function() {
 
     });
 
-
-    function calcNextTrain(p1,p2) {
+    function calcNextTrain(p1, p2) {
 
         var tFrequency = p1;
         var firstTime = p2;
 
         // First Time (pushed back 1 year to make sure it comes before current time)
         var firstTimeConverted = moment(firstTime, "hh:mm").subtract(1, "years");
-        console.log(firstTimeConverted);
+        // console.log(firstTimeConverted);
 
         // Current Time
         var currentTime = moment();
@@ -59,11 +58,11 @@ $(document).ready(function() {
 
         // Time apart (remainder)
         var tRemainder = diffTime % tFrequency;
-        console.log(tRemainder);
+        // console.log(tRemainder);
 
         // Minutes Until Train
         tMinutesTillTrain = tFrequency - tRemainder;
-        console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+        // console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
         // Next Train
         nextTrain = moment().add(tMinutesTillTrain, "minutes");
@@ -75,19 +74,35 @@ $(document).ready(function() {
 
     database.ref().on("child_added", function(snapshot) {
 
-        // var convertedDate = moment(new Date(snapshot.val().startDate));
-
         $("#trainInfo").append(`
-        	<tr>
-	        	<td>${snapshot.val().name}</td>
-	        	<td>${snapshot.val().destination}</td>
-	        	<td>${snapshot.val().frequency}</td>
-	        	<td>${calcNextTrain(snapshot.val().frequency,snapshot.val().starttime)[0]}</td>
-	        	<td>${calcNextTrain(snapshot.val().frequency,snapshot.val().starttime)[1]}</td>
-        	</tr>
-        	`);
+            <tr>
+                <td>${snapshot.val().name}</td>
+                <td>${snapshot.val().destination}</td>
+                <td>${snapshot.val().frequency}</td>
+                <td>${calcNextTrain(snapshot.val().frequency,snapshot.val().starttime)[0]}</td>
+                <td>${calcNextTrain(snapshot.val().frequency,snapshot.val().starttime)[1]}</td>
+                <td><button type="button" id="${snapshot.key}" class="btn btn-default edit-btn"><span class="glyphicon glyphicon-pencil"</span></button></td>
+                <td><button type="button" id="${snapshot.key}" class="btn btn-default delete-btn"><span class="glyphicon glyphicon-trash"</span></button></td>
+                <td></td>
+            </tr>
+            `);
     });
 
+    function deleteTrain() {
+        if (confirm("Are you sure you want to delete this train?")) {
 
+            alert("Record deleted");
+        } else {
+            alert("Nothing deleted");
+        };
+
+        console.log($(this).attr('id'));
+
+        // tmp = $(this).attr('src');
+        // $(this).attr('src', $(this).attr('alt_src'));
+        // $(this).attr('alt_src', tmp);
+    } 
+    
+    $(document).on("click", ".delete-btn", deleteTrain);
 
 });
