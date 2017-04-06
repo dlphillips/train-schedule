@@ -1,0 +1,31 @@
+body {
+    background-color: #3E6680;
+    font-family: 'Palanquin Dark', sans-serif;
+}
+
+.jumbotron {
+    background-image: url("../images/rr.jpg");
+    /*    background-color: #BFD7EA;*/
+    min-width: 100%;
+    /*margin-bottom: 0 !important;*/
+}
+
+#jumbotron-header {
+    height: inherit;
+    /*padding-top: 50%;*/
+    font-size: 125px;
+    font-weight: bold;
+    color: black;
+    -webkit-text-fill-color: white;
+    /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #3E6680;
+}
+
+.panel-primary {
+    background-color: #BFD7EA;
+}
+
+tr {
+    background-color: #fff;
+}
